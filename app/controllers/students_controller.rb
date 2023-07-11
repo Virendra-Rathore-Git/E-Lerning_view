@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
   def update
     student_update = Student.where(id: params[:id]).find_by(id: @current_user.id)
     if !student_update.blank?
-      if student_update.update(student_params)
+      if student_update.update(params.permit(:email ,:password))
         render json: student_update, status: :ok
       else
         render json: { errors: "Unable to Update Student's Data " }, status: :unprocessable_entity
@@ -37,6 +37,6 @@ class StudentsController < ApplicationController
   private
 
   def student_params
-    params.permit(:name, :email, :password, :mobile, :type)
+    params.permit(:name, :email, :password, :mobile)
   end
 end

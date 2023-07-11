@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_091945) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "course_id"
     t.integer "student_id"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_enrollments_on_course_id"
@@ -79,5 +80,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_07_091945) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "courses", "categories"
-  add_foreign_key "enrollments", "courses"
 end

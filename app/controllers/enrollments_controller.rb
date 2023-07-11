@@ -1,6 +1,15 @@
 class EnrollmentsController < ApplicationController
-  before_action :check_student, only: [:create]
+  before_action :check_student, only: [:create,:update,:index,:show,:destroy]
 
+  def index
+    enroll_course = @current_user.enrollments
+    enroll_course_list(enroll_course)
+  end
+
+  def show
+    my_enroll_course = @current_user.enrollments.where(id: params[:id])
+    enroll_course_list(my_enroll_course)
+  end
   def create
     # byebug
     begin
@@ -19,6 +28,47 @@ class EnrollmentsController < ApplicationController
     end
   end
 
+  def update
+    begin
+      update_record=@current_user.enrollments.where(id:params[:id])
+      if !update_record.blank?
+        if update_record.update(params.permit(:status))
+          render json: {enrollment_details:update_record}
+        else
+          render json: { errors: "Unable to Update Enrollment's status " }, status: :unprocessable_entity
+        end
+      else
+        render json: { message: "Course Record Not Found With id #{params[:id]}" }, status: :unprocessable_entity
+      end
+    rescue
+      render json: { errors: "Sorry #{params[:status]} is Not Valid status please select pending or complete" }, status: :unprocessable_entity
+    end
+  end
+  
+  def destroy
+    delete_enrollment=@current_user.enrollments.find_by(id:params[:id])
+    if delete_enrollment.present?
+      delete_enrollment.destroy
+      render json: {message: "Successfully Delete Course Enrollment's"},status: :ok 
+    else
+      render json: {message: "Enrollment's With Id #{params[:id]} Not Found In Your Courses List"},status: :unprocessable_entity 
+    end
+  end
+
+  def enroll_course_list(data)
+    if data.length != 0
+      courses=[]
+      data.each do|c|
+        h=Hash.new
+        h[:Course_Details]=c
+        h[:video]=c.course.video.url
+        courses.push(h)
+      end
+      render json: courses,status: :ok
+    else
+      render json: {errors: "Sorry Course Not Found"},status: :unprocessable_entity
+    end
+  end
   private
 
   def enroll_params
