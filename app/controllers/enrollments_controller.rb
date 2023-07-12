@@ -3,15 +3,15 @@ class EnrollmentsController < ApplicationController
 
   def index
     enroll_course = @current_user.enrollments
-    enroll_course_list(enroll_course)
+    course_list(enroll_course)
   end
 
   def show
     my_enroll_course = @current_user.enrollments.where(id: params[:id])
-    enroll_course_list(my_enroll_course)
+    course_list(my_enroll_course)
   end
+  
   def create
-    # byebug
     begin
       stud_enroll = @current_user.enrollments.new(enroll_params)
       if stud_enroll.course.status == "active"
@@ -33,7 +33,7 @@ class EnrollmentsController < ApplicationController
       update_record=@current_user.enrollments.where(id:params[:id])
       if !update_record.blank?
         if update_record.update(params.permit(:status))
-          render json: {enrollment_details:update_record}
+          render json: update_record
         else
           render json: { errors: "Unable to Update Enrollment's status " }, status: :unprocessable_entity
         end
@@ -55,20 +55,14 @@ class EnrollmentsController < ApplicationController
     end
   end
 
-  def enroll_course_list(data)
+  def course_list(data)
     if data.length != 0
-      courses=[]
-      data.each do|c|
-        h=Hash.new
-        h[:Course_Details]=c
-        h[:video]=c.course.video.url
-        courses.push(h)
-      end
-      render json: courses,status: :ok
+      render json: data, status: :ok
     else
       render json: {errors: "Sorry Course Not Found"},status: :unprocessable_entity
     end
   end
+
   private
 
   def enroll_params

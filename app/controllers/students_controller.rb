@@ -28,7 +28,7 @@ class StudentsController < ApplicationController
     student_destroy = Student.where(id: params[:id]).find_by(id: @current_user.id)
     if !student_destroy.blank?
       student_destroy.destroy
-      render json: { message: "Successfully Delete Data" }, status: :ok
+      render json: { message: "Successfully Deleted Student With id #{params[:id]}" }, status: :ok
     else
       render json: { message: "Record Not Found With id #{params[:id]}" }, status: :unprocessable_entity
     end

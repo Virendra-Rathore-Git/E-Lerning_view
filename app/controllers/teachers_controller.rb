@@ -15,7 +15,7 @@ class TeachersController < ApplicationController
     teacher_update = Teacher.where(id: params[:id]).find_by(id: @current_user.id)
     if !teacher_update.blank?
       if teacher_update.update(params.permit(:email ,:password))
-        render json: teacher_update, status: :ok
+        render json: {message: "Record Updated Successfully",email:teacher_update.email,password:teacher_update.password}, status: :ok
       else
         render json: { errors: "Unable to Update Teacher's Data " }, status: :unprocessable_entity
       end
@@ -26,9 +26,9 @@ class TeachersController < ApplicationController
 
   def destroy
     teacher_destroy = Teacher.where(id: params[:id]).find_by(id: @current_user.id)
-    if !teacher_destroy.blank?
+    if teacher_destroy.present?
       teacher_destroy.destroy
-      render json: { message: "Successfully Delete Data" }, status: :ok
+      render json: { message: "Successfully Delete Teacher With id #{params[:id]}" }, status: :ok
     else
       render json: { message: "Record Not Found With id #{params[:id]}" }, status: :unprocessable_entity
     end

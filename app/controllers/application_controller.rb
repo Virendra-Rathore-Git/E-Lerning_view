@@ -10,15 +10,15 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-  	begin
-    header = request.headers["Authorization"]
-    header = header.split(" ").last if header
-    decoded = jwt_decode(header)
-    @current_user = User.find(decoded[:user_id])
-  rescue
-  	render json: {message:"Token Not Found Please Provide Token"},status: :unprocessable_entity
+    begin
+      header = request.headers["Authorization"]
+      header = header.split(" ").last if header
+      decoded = jwt_decode(header)
+      @current_user = User.find(decoded[:user_id])
+      rescue
+      render json: {message:"Token Not Found Please Provide Token"},status: :unprocessable_entity
+    end
   end
-end
 
   def check_student
     if @current_user.type != "Student"
