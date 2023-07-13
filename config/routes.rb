@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
     post "/user/login", to: "authentication#login"
 
     resources :teachers,only: [:create,:update, :destroy]

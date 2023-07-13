@@ -1,4 +1,4 @@
-class TeachersController < ApplicationController
+class TeachersController < ApiController 
   skip_before_action :authenticate_request, only: [:create]
   before_action :check_teacher, only: [:update, :destroy]
 

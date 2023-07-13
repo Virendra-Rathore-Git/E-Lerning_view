@@ -7,3 +7,4 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 Category.create([{ cat_name: "Coding" }, { cat_name: "Music" }, { cat_name: "Bussiness" }, { cat_name: "Marketing" }, { cat_name: "Dance" }])
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

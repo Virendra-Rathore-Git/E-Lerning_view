@@ -1,4 +1,4 @@
-class EnrollmentsController < ApplicationController
+class EnrollmentsController < ApiController 
   before_action :check_student, only: [:create,:update,:index,:show,:destroy]
 
   def index

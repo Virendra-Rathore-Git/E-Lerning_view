@@ -8,6 +8,11 @@ gem "byebug"
 gem 'active_model_serializers'
 gem 'rubocop'
 
+gem 'devise'
+gem 'activeadmin'
+gem 'sprockets', '<4'
+gem 'sass-rails'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 

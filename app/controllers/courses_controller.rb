@@ -1,4 +1,4 @@
-class CoursesController < ApplicationController
+class CoursesController < ApiController 
   before_action :check_teacher, only: [:create, :show, :show_by_status_teacher, :update, :destroy,:show_by_name_teacher]
   before_action :check_student, only: [:show_by_name_cat_student, :show_by_cat_student, :show_avl_courses_student]
 
