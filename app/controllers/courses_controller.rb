@@ -1,10 +1,19 @@
 class CoursesController < ApplicationController
-  before_action :check_teacher, only: [:create, :index, :show, :show_by_status_teacher, :update, :destroy,:show_by_name_teacher]
+  before_action :check_teacher, only: [:create, :show, :show_by_status_teacher, :update, :destroy,:show_by_name_teacher]
   before_action :check_student, only: [:show_by_name_cat_student, :show_by_cat_student, :show_avl_courses_student]
 
   def index
-    teachers_course = @current_user.courses
-    course_list(teachers_course)
+    if @current_user.type=="Teacher"
+      teachers_course = @current_user.courses
+      course_list(teachers_course)
+    else
+      all_courses = Course.where(status: "active")
+      if all_courses.length!=0
+        render json: all_courses, each_serializer: WithoutEnrollDataSerializer , status: :ok
+      else
+        render json: { errors: "Sorry Courses Not Available" },status: :unprocessable_entity
+      end
+    end
   end
 
   def show
@@ -57,15 +66,6 @@ class CoursesController < ApplicationController
     status_course = @current_user.courses.where(status: params[:status])
     course_list(status_course)
   end
-
-  def show_avl_courses_student
-    all_courses = Course.where(status: "active")
-    if all_courses.length!=0
-      render json: all_courses, each_serializer: WithoutEnrollDataSerializer , status: :ok
-    else
-      render json: { errors: "Sorry Courses Not Available" },status: :unprocessable_entity
-    end
-  end 
 
   def show_by_cat_student
     cat_course = Course.where(category_id: params[:category_id], status: "active")
