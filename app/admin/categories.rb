@@ -1,5 +1,6 @@
 ActiveAdmin.register Category do
-  actions :index , :show
+  actions :index , :show, :new, :create
+  permit_params :cat_name
 
   index do
     selectable_column

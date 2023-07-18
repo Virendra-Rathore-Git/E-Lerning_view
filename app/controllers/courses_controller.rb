@@ -1,6 +1,5 @@
 class CoursesController < ApiController
-  before_action :check_teacher, only: %i[create show show_by_status_teacher update destroy show_by_name_teacher]
-  before_action :check_student, only: %i[show_by_name_cat_student show_by_cat_student show_avl_courses_student]
+  before_action :check_teacher, only: %i[create update destroy ]
 
   def index
     if @current_user.type == "Teacher"
@@ -23,11 +22,20 @@ class CoursesController < ApiController
   end
 
   def show
+    if @current_user.type == "Teacher"
     teacher_course = @current_user.courses.find_by(id: params[:id])
-    if teacher_course.present?
-      render json: teacher_course,each_serializer: CourseSerializer, user: @current_user, status: :ok
+      if teacher_course.present?
+        render json: teacher_course,each_serializer: CourseSerializer, user: @current_user, status: :ok
+      else
+        render json: { errors: "Sorry Course With id #{params[:id]} is Not Available In Your Course List" }
+      end
     else
-      render json: { errors: "Sorry Course With id #{params[:id]} is Not Available In Your Course List" }
+      student_course = @current_user.enrolled_courses.find_by(id: params[:id])
+      if student_course.present?
+        render json: student_course,each_serializer: CourseSerializer, user: @current_user, status: :ok
+      else
+        render json: @current_user.enrolled_courses,each_serializer: CourseSerializer,user: @current_user, status: :ok
+      end
     end
   end
 

@@ -3,7 +3,7 @@ class AuthenticationController < ApiController
 
   def login
     user = User.find_by_email(params[:email])
-    if user && user.authenticate(params[:password])
+    if user && user.authenticate(params[:password]) && user.status == "active" 
       token = jwt_encode(user_id: user.id)
       render json: { id: user.id, name: user.name, email: user.email, token: token }, status: :ok
     else

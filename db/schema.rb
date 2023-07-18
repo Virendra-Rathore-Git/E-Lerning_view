@@ -99,6 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_13_085023) do
     t.integer "mobile"
     t.string "password_digest"
     t.string "type"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

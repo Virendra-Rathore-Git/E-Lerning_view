@@ -1,5 +1,5 @@
 ActiveAdmin.register Course do
-  actions  :index, :show, :delete, :create
+  actions  :index, :show, :create
 
   index do
     selectable_column

@@ -1,5 +1,5 @@
 class Enrollment < ApplicationRecord
-  belongs_to :student
+  belongs_to :student 
   belongs_to :course
 
   enum status: { pending: "pending", complete: "complete" }, _default: "pending"
