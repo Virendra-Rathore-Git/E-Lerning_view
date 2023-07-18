@@ -3,41 +3,27 @@ class CoursesController < ApiController
 
   def index
     if @current_user.type == "Teacher"
-        course_data = @current_user.courses.where(course_name:params[:course_name]).or( @current_user.courses.where(status: params[:status]) )
-      if course_data.present?
-        course_list(course_data)    
-      else 
-        teachers_course = @current_user.courses
-        course_list(teachers_course)
-      end
+      courses = @current_user.courses
+      courses = courses.where("course_name LIKE ?","%#{params[:course_name]}%") if params[:course_name].present?
+      courses = courses.where(status: params[:status]) if params[:status].present?
     else
-    cat_course = Course.where(category_id: params[:category_id], status: "active").or(Course.where(course_name:params[:course_name],status: "active"))
-      if cat_course.present?
-        course_list(cat_course)
-      else
-        all_courses = Course.where(status: "active")
-        course_list(all_courses)
-      end
+      courses = Course.where(status: "active")
+      courses = courses.where(category_id: params[:category_id]) if params[:category_id].present?
+      courses = courses.where("course_name LIKE ?", "%#{params[:course_name]}%") if params[:course_name].present?
     end  
+    course_list(courses)
   end
 
   def show
     if @current_user.type == "Teacher"
-    teacher_course = @current_user.courses.find_by(id: params[:id])
-      if teacher_course.present?
-        render json: teacher_course,each_serializer: CourseSerializer, user: @current_user, status: :ok
-      else
-        render json: { errors: "Sorry Course With id #{params[:id]} is Not Available In Your Course List" }
-      end
+      courses = @current_user.courses.find_by(id: params[:id])
     else
-      student_course = @current_user.enrolled_courses.find_by(id: params[:id])
-      if student_course.present?
-        render json: student_course,each_serializer: CourseSerializer, user: @current_user, status: :ok
-      else
-        render json: @current_user.enrolled_courses,each_serializer: CourseSerializer,user: @current_user, status: :ok
-      end
+      courses = @current_user.enrolled_courses
+      courses = courses.where(id: params[:id]) if params[:id].present?
     end
+    course_list(courses)
   end
+
 
   def create
     course = @current_user.courses.new(course_params)
