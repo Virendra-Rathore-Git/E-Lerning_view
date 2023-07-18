@@ -15,7 +15,7 @@ class ApiController < ActionController::API
       header = header.split(" ").last if header
       decoded = jwt_decode(header)
       @current_user = User.find(decoded[:user_id])
-      rescue
+    rescue
       render json: {message:"Token Not Found Please Provide Token"},status: :unprocessable_entity
     end
   end

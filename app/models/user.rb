@@ -5,5 +5,4 @@ class User < ApplicationRecord
   validates :mobile, presence: true, uniqueness: true, length: { minimum: 10, maximum: 10 }
   validates :email, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9\-\.]+[@][a-z]+[\.][c][o][m]\z/, message: "Please Enter Email Like Example123@gmail.com" }
   validates :password, presence: true
-  validates :type, inclusion: { in: ["Teacher", "Student"], message: "Type Must be in Teacher or Student " }
 end
