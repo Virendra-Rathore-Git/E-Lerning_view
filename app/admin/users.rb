@@ -1,6 +1,8 @@
 ActiveAdmin.register User do
-permit_params :email, :status, :password
+permit_params :email, :status
 actions :index , :show ,:edit,:update
+scope :active, group: :status
+scope :inactive, group: :status
   index do
     selectable_column
     id_column
@@ -11,6 +13,16 @@ actions :index , :show ,:edit,:update
     column :status
     actions
   end
+
+  show do
+  attributes_table do
+  row :email
+  row :name
+  row :mobile
+  row :type
+  row :status
+  end 
+  end
   
   filter :id
   filter :name
@@ -19,9 +31,8 @@ actions :index , :show ,:edit,:update
 
   form do |f|
     f.inputs do
-      f.input :email
-      f.input :password
-      f.input :status
+      f.input :email , input_html: { readonly: true }
+      f.input :status, as: :select
     end
     f.actions
   end

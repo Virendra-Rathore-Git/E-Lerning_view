@@ -5,7 +5,9 @@ ActiveAdmin.register Enrollment do
   index do
     selectable_column
     id_column
-    column :course
+    column :course do |c|
+      c.course.course_name
+    end
     column :student.name
     actions
   end
@@ -13,4 +15,15 @@ ActiveAdmin.register Enrollment do
   filter :id
   filter :course
   filter :student.name
+
+  show do 
+    attributes_table do
+    row :id
+    row :student
+    row :course do |c|
+      c.course.course_name
+    end
+    row :status
+  end
+  end
 end
