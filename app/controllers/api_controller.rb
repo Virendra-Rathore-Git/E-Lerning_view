@@ -7,6 +7,18 @@ class ApiController < ActionController::API
 
   before_action :authenticate_request
 
+  rescue_from ActiveRecord::RecordNotFound do|exception|
+    render json: {message:exception}
+  end
+ 
+  def current_user
+    @current_user 
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: {message: exception}
+  end
+
   private
 
   def authenticate_request
@@ -17,18 +29,6 @@ class ApiController < ActionController::API
       @current_user = User.find(decoded[:user_id])
     rescue
       render json: {message:"Token Not Found Please Provide Token"},status: :unprocessable_entity
-    end
-  end
-
-  def check_student
-    if @current_user.type != "Student"
-      render json: { error: "Not Allowed For Teacher" }
-    end
-  end
-
-  def check_teacher
-    if @current_user.type != "Teacher"
-      render json: { error: "Not Allowed For Student" }
     end
   end
 end

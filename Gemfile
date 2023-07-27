@@ -12,9 +12,11 @@ gem 'devise'
 gem 'activeadmin'
 gem 'sprockets', '<4'
 gem 'sass-rails'
+# 
 
-gem 'cancan'
+gem "cancancan"
 
+# gem "pundit"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 

@@ -1,6 +1,5 @@
 class UsersController < ApiController
   skip_before_action :authenticate_request, only: %i[create]
-  before_action :authenticate_request, only: %i[update destroy]
 
   def create
     user = if params[:type].downcase == "teacher"
@@ -24,8 +23,8 @@ class UsersController < ApiController
   end
 
   def destroy
-    @current_user.destroy
-    render json: { message: "Successfully Delete user With id #{@current_user.id}" }, status: :ok
+    render json: { message: "Successfully Delete user With id #{@current_user.id}" }, status: :ok if @current_user.destroy
+
   end
 
   private

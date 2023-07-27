@@ -8,3 +8,4 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: /\A[a-zA-Z0-9\-\.]+[@][a-z]+[\.][c][o][m]\z/, message: "Please Enter Email Like Example123@gmail.com" }
 
 end
+  

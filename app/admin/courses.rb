@@ -1,6 +1,10 @@
 ActiveAdmin.register Course do
   actions  :index, :show, :create
 
+  before_action do
+    ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
+  end
+  
   index do
     selectable_column
     id_column
@@ -11,6 +15,9 @@ ActiveAdmin.register Course do
             c.category.cat_name
     end
     column :status
+    column :video do |v|
+        v.video.url
+    end
     actions 
   end
  
