@@ -19,8 +19,7 @@ class CoursesController < ApiController
     if @current_user.type == "Teacher"
       courses = @current_user.courses.find_by(id: params[:id])
     else
-      courses = @current_user.enrolled_courses
-      courses = courses.where(id: params[:id]) if params[:id].present?
+      courses = Course.where(id: params[:id],status: "active") if params[:id].present?
     end
     course_list(courses)
   end

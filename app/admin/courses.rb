@@ -16,7 +16,7 @@ ActiveAdmin.register Course do
     end
     column :status
     column :video do |v|
-        v.video.url
+        v.video.filename
     end
     actions 
   end

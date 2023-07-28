@@ -2,15 +2,16 @@ class UsersController < ApiController
   skip_before_action :authenticate_request, only: %i[create]
 
   def create
-    user = if params[:type].downcase == "teacher"
+    @user = if params[:type].downcase == "teacher"
       Teacher.new(user_params)
     else
       Student.new(user_params)
     end
-    if user.save
-      render json: user, status: :created
+    if @user.save
+        UserMailer.with(user: @user).welcome_email.deliver_now
+        render json: @user, status: :created
     else
-      render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

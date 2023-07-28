@@ -10,7 +10,7 @@ class ApiController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound do|exception|
     render json: {message:exception}
   end
- 
+
   def current_user
     @current_user 
   end

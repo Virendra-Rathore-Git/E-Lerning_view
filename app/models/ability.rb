@@ -7,7 +7,7 @@ class Ability
       can [ :index, :show, :create, :update, :destroy ] , Course , teacher_id: user.id
     elsif user.type == "Student"
       can [ :manage ], Enrollment , student_id: user.id 
-      can [:index ] , Course , student_id: user.id 
+      can [:index , :show] , Course  
     end
   end
 end
