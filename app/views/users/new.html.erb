@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag "style" %>
+
+<center>
+  <h1>Registration</h1>
+<div style="border: 1px solid black; width:240px; background-color: gainsboro;">
+<br>
+<%= form_with model: @user do |form| %>
+<div>
+  <%= form.label :name %><br>
+  <%= form.text_field :name , placeholder: "Enter Name"%>
+</div>
+
+<div>
+  <%= form.label :email  %><br>
+  <%= form.email_field :email, placeholder: "Enter Email" %>
+</div>
+
+<div>
+  <%= form.label :mobile  %><br>
+  <%= form.text_field :mobile, placeholder: "Enter Mobile Number" %>
+</div>
+
+<div>
+  <%= form.label :password  %><br>
+  <%= form.password_field :password , placeholder: "Enter Password"%>
+</div>
+
+<div>
+  <%= form.label :User_type  %><br>
+  <%= form.select :type, ["Teacher", "Student"] %>
+</div>
+<br>
+<div>
+  <%= form.submit "Sign Up"%>
+</div>
+<% end %>
+</div>
+
+</center>

@@ -1,0 +1,53 @@
+<%= stylesheet_link_tag "style" %>
+
+<center>
+<h1>Create Course</h1>
+<br>
+<div style="border: 1px solid black; width:240px; background-color: gainsboro;">
+<%= form_with model: @course do |form| %>
+
+<br>
+<div>
+  <%= form.label :course_name %>
+  <%= form.text_field :course_name, placeholder: "Enter Course Name" %>
+</div>
+<br>
+
+<div>
+  <%= form.label :current_user %>
+  <%= form.text_field :teacher_id %>
+</div>
+<br>
+
+<div>
+  <%= form.label :course_desc  %>
+  <%= form.text_field :course_desc, placeholder: "Enter Course Description" %>
+</div>
+<br>
+
+
+<div>
+  <%= form.label :category_name  %>
+  <%= form.collection_select :category_id,Category.order(:cat_name),:id,:cat_name  %>
+</div>
+
+<br>
+
+<div>
+  <%= form.label :status  %>
+  <%= form.select :status, ["active", "inactive"] %>
+</div>
+<br>
+<div>
+  <%= form.label :video  %><br><br>
+  <%= form.file_field :video %>
+</div>
+
+<br><br>
+
+<div>
+  <%= form.submit "Create Course"%>
+</div>
+<% end %>
+</div>
+</center>

@@ -1,5 +1,6 @@
-class ApiController < ActionController::API
+class ApiController <  ApplicationController
 	include JsonWebToken
+  # before_action :current_user
 
   before_action do
     ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
@@ -12,7 +13,7 @@ class ApiController < ActionController::API
   end
 
   def current_user
-    @current_user 
+    return @current_user
   end
 
   rescue_from CanCan::AccessDenied do |exception|

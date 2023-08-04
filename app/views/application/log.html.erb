@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag "style" %>
+
+<center>
+  <p style="color:yellow"> <%= flash[:errors] %> </p>
+  <h1>Login</h1>
+<div style="border: 1px solid red; width:240px; background-color: gainsboro;">
+<br>
+
+<%= form_with model: @user ,data: @current_user, method: :post do |form| %>
+
+<div>
+  <%= form.label :email   %><br>
+  <%= form.email_field :email,  placeholder: "Enter Email" %>
+</div>
+
+
+<div>
+  <%= form.label :password  %><br>
+  <%= form.password_field :password, placeholder: "Enter Password"  %>
+</div>
+<br>
+<div>
+  <%= form.submit "Login" %>
+</div>
+<% end %>
+</div>
+</center>

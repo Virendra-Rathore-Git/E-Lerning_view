@@ -1,0 +1,15 @@
+<%= stylesheet_link_tag "style" %>
+
+<center>
+<h1>Cetegories List </h1>
+  <%  @categories.each do |cat| %>
+<br>
+    <div style="border: 3px solid black; width: 600px;background-color: gainsboro;">
+      <p style="color: brown; font-size: 20px;"> Category name : <%= cat.cat_name %> </p>
+      <br>
+
+    </div>
+    <br>
+ <%end%>
+
+</center>

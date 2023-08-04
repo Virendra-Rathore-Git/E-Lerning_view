@@ -1,17 +1,27 @@
 class UsersController < ApiController
-  skip_before_action :authenticate_request, only: %i[create]
+  # skip_before_action :authenticate_request, only: %i[index new create log   login]
+    # include ActionController::Cookies
+
+
+  def index
+  end
+
+  def new
+    @user = User.new
+  end
 
   def create
-    @user = if params[:type].downcase == "teacher"
+    @user = if params[:type] == "teacher"
       Teacher.new(user_params)
     else
       Student.new(user_params)
     end
     if @user.save
-        UserMailer.with(user: @user).welcome_email.deliver_now
-        render json: @user, status: :created
+        # UserMailer.with(user: @user).welcome_email.deliver_now
+        # render json: @user, status: :created
+        flash.now[:notice] = "Successfully Registerd"
     else
-      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      flash.now[:notice] = @user.errors.full_messages
     end
   end
 
@@ -31,6 +41,9 @@ class UsersController < ApiController
   private
 
   def user_params
-    params.permit(:name, :email, :password, :mobile)
+    params.require(:user).permit(:name, :email, :password, :mobile)
   end
+
+
+
 end

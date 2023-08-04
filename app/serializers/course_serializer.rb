@@ -6,9 +6,9 @@ class CourseSerializer < ActiveModel::Serializer
     object.category.cat_name
   end
   
-  def user
-    @current_user = @instance_options[:user]
-  end
+  # def user
+  #   @current_user = @instance_options[:user]
+  # end
 
   def video
     if user.type=="Student"

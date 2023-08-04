@@ -11,7 +11,10 @@ require "jwt"
   end
 
   def jwt_decode(token)
+    token = cookies[:token]
     decoded = JWT.decode(token, SECRET_KEY)[0]
     HashWithIndifferentAccess.new decoded
   end
+
+
 end
