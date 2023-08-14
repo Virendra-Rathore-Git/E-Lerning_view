@@ -176,6 +176,8 @@ GEM
     parser (3.2.2.3)
       ast (~> 2.4.1)
       racc
+    pg (1.5.3)
+    pg (1.5.3-x64-mingw-ucrt)
     puma (5.6.6)
       nio4r (~> 2.0)
     racc (1.7.1)
@@ -286,6 +288,7 @@ DEPENDENCIES
   debug
   devise
   jwt
+  pg
   puma (~> 5.0)
   rails (~> 7.0.6)
   rubocop

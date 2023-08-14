@@ -1,13 +1,24 @@
 <%= stylesheet_link_tag "style" %>
 
 <center>
-  <h1>Welcome to E-Lerning</h1>
-  <div>
-<button>   <%= link_to "Create Course", new_course_path  %></button>
-<button>  <%= link_to "Login" , user_login_path %></button>
-<button> <%= link_to "Sign Up", new_users_path %> </button>
-<button>  <%= link_to "All Courses" , courses_path %></button>
-<button>  <%= link_to "All Cetegories" , categories_path %></button>
+<div>
+  <% if !current_user.nil? && current_user.type == "Teacher" %>
+    <button>   <%= link_to "Create Course", new_course_path  %></button>
+    <button>  <%= link_to "All Courses" , courses_path %></button>
+
+  <% elsif !current_user.nil?  %>
+    <button>  <%= link_to "All Courses" , courses_path %></button>
+    <button>  <%= link_to "All Cetegories" , categories_path %></button>
+  <% elsif current_user.nil? %>
+    <button>  <%= link_to "Login" , "users/sign_in" %></button>
+    <button> <%= link_to "Sign Up", "users/sign_up" %> </button>
+
+  <% end %>
+  <% if !current_user.nil? && current_user.type == "Student" %>
+    <button> <%= link_to "Enroll", new_enrollment_path %> </button>
+  <% end %>
+  <%= button_to "LogOut", destroy_user_session_path,method: :delete%>
 </div>
+
 </center>
 

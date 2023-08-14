@@ -19,3 +19,9 @@ h1{
 div{
   border-radius: 20px;
 }
+
+h3{
+  background-color: oldlace;
+  border-radius: 10px;
+  color: red;
+}

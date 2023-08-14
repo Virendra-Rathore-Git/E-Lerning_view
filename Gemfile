@@ -13,7 +13,7 @@ gem 'activeadmin'
 gem 'sprockets', '<4'
 gem 'sass-rails'
 # 
-
+gem 'pg'
 gem "cancancan"
 
 # gem "pundit"
