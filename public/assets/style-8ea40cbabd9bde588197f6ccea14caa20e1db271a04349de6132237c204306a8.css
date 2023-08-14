@@ -1,0 +1,21 @@
+body{
+  background-color: gray;
+}
+
+button{
+  background-color: oldlace;
+  border-radius: 10px;
+}
+a{
+  text-decoration:none;
+  color: darkred;
+  font: bolder;
+  font-size: 16px;
+}
+h1{
+  color: navajowhite;
+}
+
+div{
+  border-radius: 20px;
+}

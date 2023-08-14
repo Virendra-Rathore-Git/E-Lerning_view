@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag "style" %>
+
+<center>
+<h1>Courses List </h1>
+  <% @course.each do |course| %>
+    <div style="border: 3px solid black; width: 600px;background-color: gainsboro;">
+      <p style="color: blue;"> course name : <%= course.course_name %> </p>
+      <p style="color: red;"> teacher id : <%=  course.teacher_id %> </p>
+      <p style="color: green;"> category id : <%=  course.category_id %> </p>
+      <p style="color: teal;"> course description : <%= course.course_desc %> </p>
+      <p style="color: brown;"> course status :<%= course.status %> </p>
+     <!-- course video :  <a href="" , style="color: firebrick;"> <%= course.video.filename %> </a><br><br> -->
+
+    Video <br> <%= video_tag url_for(course.video), size: "400x200",controls: true , autobuffer: true%>
+      <br><br>
+
+    </div>
+    <br>
+ <%end%>
+
+</center>

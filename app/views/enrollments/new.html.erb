@@ -1,0 +1,22 @@
+<%= stylesheet_link_tag "style" %>
+
+<center>
+<h1>Enroll For Course</h1>
+<br>
+<div style="border: 1px solid black; width:240px; background-color: gainsboro;">
+  <%= form_with model: @enrollments do |form| %>
+<br><br>
+<div>
+  <%= form.label :course_name %>
+  <%= form.collection_select :course_id, Course.order(:course_name).where(status: 'active'), :id,:course_name , placeholder: "Enter Course Name" %>
+</div>
+<br>
+<br>
+
+<div>
+  <%= form.submit "Enroll"%>
+</div>
+<br>
+<% end %>
+</div>
+</center>
